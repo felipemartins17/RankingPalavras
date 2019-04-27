@@ -36,14 +36,14 @@ void inicia_mapa (Mapa *mp) //inicia um mapa vazio
 
 void insere_termo (Mapa *mp, char *s) // insere um item com termo s e conta = 1
 {
-    /*
+    
     if ((mp->total != 0)&&((mp->total%BLOCK) == 0))
     {
         mp->lista = (Item**)realloc(mp->lista,(mp->blocos+1)*BLOCK*(sizeof(Item*)));
         mp->blocos++;
     }
-    */
-    mp->lista[mp->total] = (Item*) malloc(sizeof(Item)); // alocaÁ„o din‚mica de item no mapa
+    
+    mp->lista[mp->total] = (Item*) malloc(sizeof(Item)); // aloca√ß√£o din√¢mica de item no mapa
 
     if (mp->lista[mp->total] == NULL)
     {
@@ -57,7 +57,7 @@ void insere_termo (Mapa *mp, char *s) // insere um item com termo s e conta = 1
     mp->total++; // contagem do total
 
 }
-int incrementa (Mapa *mp, char *s) //incrementa contador do termo s, retorna 1 se n„o encontrou o termo
+int incrementa (Mapa *mp, char *s) //incrementa contador do termo s, retorna 1 se n√£o encontrou o termo
 {
     int i;
     for (i=0; i<mp->total; i++)
@@ -74,8 +74,8 @@ int incrementa (Mapa *mp, char *s) //incrementa contador do termo s, retorna 1 s
     }
 return 0;
 }
-int escreve_cont (Mapa *mp, char *s, int c)  // escreve ¥c` no contador do termo s,
-// retorna 1 se n„o encontrou o termo
+int escreve_cont (Mapa *mp, char *s, int c)  // escreve ¬¥c` no contador do termo s,
+// retorna 1 se n√£o encontrou o termo
 {
     int i;
     for (i=0; i < mp->total; i++){
@@ -122,7 +122,7 @@ void remove_termo (Mapa *mp, char *s)
 
 }
 
-void libera_mapa (Mapa *mp) // libera o espaÁo ocupado pelo mapa
+void libera_mapa (Mapa *mp) // libera o espa√ßo ocupado pelo mapa
 {
     int i;
     for (i=0; i<mp->total; i++)
@@ -133,7 +133,7 @@ void libera_mapa (Mapa *mp) // libera o espaÁo ocupado pelo mapa
         mp->lista =(Item **)realloc(mp->lista, BLOCK*sizeof(Item*));
 }
 
-int tamanho_mapa (Mapa * mp) // retorna n˙mero de itens no mapa
+int tamanho_mapa (Mapa * mp) // retorna n√∫mero de itens no mapa
 {
     return mp->total;
 }
@@ -148,7 +148,7 @@ void le_termo(Mapa *mp, int i, char *t, int *c){
              *c = mp->lista[k]->conta;
             }
             else
-                printf("Õndice n„o encontrado, tente outro");
+                printf("√çndice n√£o encontrado, tente outro");
         }
 }
 
