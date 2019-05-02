@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "Mapa.h"
 #define BLOCK 10
 
@@ -9,7 +10,8 @@ int menu (void)
 {
     int valor;
 
-    printf("1 - Ler arquivo txt \n"
+    printf("\n *MENU* \n"
+           "1 - Ler arquivo txt \n"
            "2 - Exibir ranking completo\n"
            "3 - Exibir intervalo de Ranking\n"
            "4 - Buscar palavra\n"
@@ -36,7 +38,8 @@ void inicia_mapa (Mapa *mp) //inicia um mapa vazio
 
 void insere_termo (Mapa *mp, char *s) // insere um item com termo s e conta = 1
 {
-    
+    int i;
+    int test = 0;
     if ((mp->total != 0)&&((mp->total%BLOCK) == 0))
     {
         mp->lista = (Item**)realloc(mp->lista,(mp->blocos+1)*BLOCK*(sizeof(Item*)));
@@ -50,12 +53,26 @@ void insere_termo (Mapa *mp, char *s) // insere um item com termo s e conta = 1
         printf("Erro na alocacao de memoria\n");
         exit(0);
     }
-
-    strcpy(mp->lista[mp->total]->termo, s); // Insere termo s
-    printf("%s\n", mp->lista[mp->total]->termo);
-    mp->lista[mp->total]->conta++;
-    mp->total++; // contagem do total
-
+    
+    for (i=0; i < mp->total; i++)
+    {
+        if (strcmp(mp->lista[i]->termo, s) == 0)
+        {
+            mp->lista[i]->conta++;
+            test = 1;
+        }
+    }
+    
+    if (test == 0)
+    {
+        
+        mp->lista[mp->total]->termo = strdup(s); // Insere termo s
+        printf("%s\n", mp->lista[mp->total]->termo);
+        mp->lista[mp->total]->conta++;
+        mp->total++; // contagem do total
+        
+    }
+    
 }
 int incrementa (Mapa *mp, char *s) //incrementa contador do termo s, retorna 1 se não encontrou o termo
 {
@@ -92,15 +109,15 @@ return 0;
 int le_contador (Mapa *mp, char *s) // retorna contador do termo s
 {
     int i;
-    for (i=0; i<= mp->total; i++)
+    for (i=0; i < mp->total; i++)
     {
-        if (strcmp ( mp->lista[i]->termo, s) ==0)
+        if (strcmp(mp->lista[i]->termo, s) == 0)
         {
             return mp->lista[i]->conta;
         }
         else
         {
-            return 1;
+            return 0;
         }
     }
 }
@@ -152,3 +169,28 @@ void le_termo(Mapa *mp, int i, char *t, int *c){
         }
 }
 
+void ranking(Mapa *mp)
+{
+    int aux, i, j;
+    
+    for (i=0; i<mp->total; i++)
+    {
+        for (j=i+1; j<mp->total; j++)
+        {
+           if (mp->lista[j]->conta > mp->lista[i]->conta)
+           {
+                aux = mp->lista[i];
+                mp->lista[i] = mp->lista[j];
+                mp->lista[j] = aux;
+           }
+           
+        }
+    }
+    
+    for (i=0; i < mp->total; i++)
+    {
+       
+        printf ("\n%s | %d\n", mp->lista[i]->termo, mp->lista[i]->conta);
+        
+    }
+}
