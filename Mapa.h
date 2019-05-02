@@ -9,21 +9,22 @@ char *termo; //palavra
 
 typedef struct _mapa
 {
-int total; // número de itens no mapa
-int blocos; // número de blocos de itens alocados
+int total; // nÃºmero de itens no mapa
+int blocos; // nÃºmero de blocos de itens alocados
 Item **lista; // vetor de ponteiros para itens
 } Mapa;
 
 int menu(void);
+void ranking (Mapa *mp);
 void inicia_mapa (Mapa *mp); //inicia um mapa vazio
 void insere_termo (Mapa *mp, char *s); // insere um item com termo s e conta=1
 int incrementa (Mapa *mp, char *s); // incrementa contador do termo s, retorna 1
-// se não encontrou o termo
-int escreve_cont (Mapa *mp, char *s, int c); // escreve ´c` no contador do termo s,
-// retorna 1 se não encontrou o termo
+// se nÃ£o encontrou o termo
+int escreve_cont (Mapa *mp, char *s, int c); // escreve Â´c` no contador do termo s,
+// retorna 1 se nÃ£o encontrou o termo
 int le_contador (Mapa *mp, char *s); // retorna contador do termo s
 void remove_termo (Mapa *mp, char *s); // remove o item com termo s
-void libera_mapa (Mapa * mp); // libera o espaço ocupado pelo mapa
-int tamanho_mapa (Mapa * mp); // retorna número de itens no mapa
-void le_termo (Mapa * mp, int i, char *t, int *c); //retorna em ‘t’ o termo no índice ´i´
-//e em ´c´ o seu contador
+void libera_mapa (Mapa * mp); // libera o espaÃ§o ocupado pelo mapa
+int tamanho_mapa (Mapa * mp); // retorna nÃºmero de itens no mapa
+void le_termo (Mapa * mp, int i, char *t, int *c); //retorna em â€˜tâ€™ o termo no Ã­ndice Â´iÂ´
+//e em Â´cÂ´ o seu contador
