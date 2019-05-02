@@ -8,7 +8,7 @@ int main()
 {
     Mapa mp;
     FILE *arq;
-    int i, result, numPalavras;
+    int i, result;
     float x;
     int valor, max, min, mincar;
     char caminho[20];
@@ -19,29 +19,45 @@ int main()
 
     valor = menu();
 
-    switch (valor)
+    while (valor != 0)
     {
-    case 1:
-        printf ("*Ler Arquivo* \n");
-        printf("Digite caminho: ");
-        scanf("%s", caminho);
+        switch (valor)
+        {
+        case 1:
+            printf ("*Ler Arquivo* \n");
+            printf("Digite caminho: ");
+            scanf("%s", caminho);
 
-        arq = fopen(caminho,"r"); // abrir arquivo no caminho especificado
-            if (arq == NULL)
-            {
-                 printf("Erro, nao foi possivel abrir o arquivo\n");
-            }
+            arq = fopen(caminho,"r"); // abrir arquivo no caminho especificado
+                if (arq == NULL)
+                {
+                     printf("Erro, nao foi possivel abrir o arquivo\n");
+                }
 
     while(fscanf(arq, "%s", termo) != EOF)
     {
-        //Adiciona cada palavra no vetor
-        insere_termo(&mp, termo);
+        //Adiciona cada palavra na estrutura
+        tam = strlen(termo);
+        if (tam > 3)
+        {
+           insere_termo(&mp, termo); 
+        }
+        
     }
+    
+    printf("\nPalavras armazenadas corretamente\n");
+    
+    valor = menu();
 
     break;
 
     case 2:
-        printf ("*Ranking Completo* \n");
+        printf ("\n*Ranking Completo*\n"
+                "\nPalavra | Contador\n");
+        
+        ranking(&mp);
+        
+        valor = menu();
     break;
 
     case 3:
@@ -50,6 +66,7 @@ int main()
         scanf("%d", &min);
         printf ("Digite quantidade minima: ");
         scanf("%d", &max);
+        valor = menu();
 
     break;
 
@@ -57,22 +74,25 @@ int main()
         printf("*Buscar Palavra*\n"
                "Digite a palavra: ");
         scanf ("%s", termo);
+        valor = menu();
     break;
 
     case 5:
         printf("*Opcoes*\n");
         printf("Digite o minimo de caracteres a considerar: ");
         scanf ("%d", &mincar);
+        valor = menu();
     break;
 
     case 6:
         printf("Saindo do programa...\n");
         exit(0);
+        valor = menu();
     break;
     }
+}
 
 libera_mapa(&mp);
-free(&mp);
 return 0;
 
 }
