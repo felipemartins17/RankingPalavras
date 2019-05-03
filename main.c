@@ -34,16 +34,26 @@ int main()
                      printf("Erro, nao foi possivel abrir o arquivo\n");
                 }
 
-    while(fscanf(arq, "%s", termo) != EOF)
-    {
-        //Adiciona cada palavra na estrutura
-        tam = strlen(termo);
-        if (tam > 3)
+    for (;;)
+    {   
+        fscanf(arq, " ."); // Ignorar Virgulas
+        fscanf(arq, " ,"); // Ignorar pontos
+        while(fscanf(arq, "%99[^., \t\n\f\r\v]", termo) == 1)
         {
-           insere_termo(&mp, termo); 
+            //Adiciona cada palavra na estrutura
+            tam = strlen(termo);
+            if (tam > 3)
+            {
+                insere_termo(&mp, termo); 
+            }
+
         }
-        
+        if (feof(arq))
+        break;
     }
+    printf("\nPalavras armazenadas corretamente\n");
+    valor = menu();
+    break;
     
     printf("\nPalavras armazenadas corretamente\n");
     
