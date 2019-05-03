@@ -54,12 +54,6 @@ int main()
     printf("\nPalavras armazenadas corretamente\n");
     valor = menu();
     break;
-    
-    printf("\nPalavras armazenadas corretamente\n");
-    
-    valor = menu();
-
-    break;
 
     case 2:
         printf ("\n*Ranking Completo*\n"
